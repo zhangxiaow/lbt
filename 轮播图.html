@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			#box{width:390px ; height: 480px;margin: 30px;
+			position: relative;left: 0; top: 0;}
+			#box img{width:390px ; height: 480px;}
+			h3,p{ margin: 0; position: absolute; left: 0; color:#fff; text-align: center;
+			height: 35px; line-height: 35px; width: 100%; background: rgba(0,0,0,0.6);}
+			h3{ top:0 ;}
+			p{ bottom: 0;}
+			ul{position: absolute;left: 400px; top:30px ;}
+			ul li{ list-style: none;width: 40px; height: 40px; border: 1px #000 solid;
+			margin-bottom: 10px; cursor: pointer;}
+		</style>
+		<script type="text/javascript">
+			
+				window.onload=function(){
+				var oBox=document.getElementById("box");
+				var oImg=oBox.getElementsByTagName("img")[0];
+				var oList=document.getElementById("list");
+				var aLi=oList.getElementsByTagName("li");
+				var oP=oBox.getElementsByTagName("p")[0];
+				var oH3=oBox.getElementsByTagName("h3")[0];
+				var arrImg=["img/1.png","img/2.png","img/3.png","img/4.png"];
+				var arrText=["老鹰","游戏美女","动漫美女","钢铁侠"];
+				var timer=null;
+				//初始化一下
+				var num=0;
+				oH3.innerHTML=(num+1)+"/"+arrImg.length;
+				oP.innerHTML=arrText[num];
+				
+				
+				
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].index=i;
+					aLi[i].style.background="url("+ arrImg[i] +")";
+					aLi[i].style.backgroundSize="contain";
+					
+					aLi[i].onmouseover=function(){
+						clearInterval(timer);
+					}
+					
+					aLi[i].onclick=function(){
+						fn(this.index);
+					}
+					
+					aLi[i].onmouseout=function(){
+						num=this.index;
+						timer=setInterval(function(){
+							num++;
+							if(num==arrImg.length){
+								num=0;
+							}
+							fn(num);
+						},1000);
+					}
+				}
+				//动起来
+				timer=setInterval(function(){
+					num++;
+					if(num==arrImg.length){
+						num=0;
+					}
+					fn(num);
+				},1000);
+				function fn(m){
+					oImg.src=arrImg[m];
+					oP.innerHTML=arrText[m];
+					oH3.innerHTML=(m+1)+"/"+arrImg.length;
+				}
+				
+			}		
+	   </script>
+	</head>
+	<body>
+		<div id="box">
+			<h3>0/0</h3>
+			<img src="img/1.png"  />
+			<p>图片信息加载中……</p>
+		</div>
+		<ul id="list">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</body>
+</html>
